@@ -17,6 +17,11 @@ const ignore = [
 
 const emails = [];
 
+let table = new Table({
+  head: ['email address'],
+  colWidths: [15]
+});
+
 const options = {
   uri: `http://www.une.edu/registrar/staff-locations`, //test location
   // uri: `https://www.google.com`,
@@ -27,21 +32,16 @@ const options = {
 
 rp(options)
   .then(($) => {
-    process.stdout.write('loading');
-    const $a = $('a[href*=mailto]');
+    process.stdout.write('loading...\n');
+    const $a = $('a[href*=mailto]')
+      .each((i, el) => {
+	      var email = $(el).attr('href').slice(7);
+	      emails.push(email);
+    })
 
-    $a.each((i, el) => {
-	    var email = $(el).attr('href').slice(7);
-	    emails.push(email);
-    });
-
-    console.log(emails);
+    process.stdout.write('\n');
+    console.log(emails.join("\n"));
   })
-
   .catch((err) => {
     console.log(err);
   });
-
-const printEmails = () => {
-
-}
