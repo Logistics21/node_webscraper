@@ -1,0 +1,20 @@
+{
+  "name": "node_webscraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Logistics21/node_webscraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Logistics21/node_webscraper/issues"
+  },
+  "homepage": "https://github.com/Logistics21/node_webscraper#readme"
+}

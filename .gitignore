@@ -1,0 +1,10 @@
+# Ignore bundler config.
+
+node_modules
+.DS_Store
+npm-debug.log
+
+# Ignore all logfiles and tempfiles.
+/log/*
+!/log/.keep
+/tmp
