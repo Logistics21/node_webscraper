@@ -4,3 +4,11 @@ const rp = require('request-promise');
 const cherio = require('cherio');
 //displays results in console
 const Table = require('cli-table');
+
+const options = {
+  uri: `https://www.google.com`,
+  json:true,
+  transform: function(body) {
+    return cheerio.load(body);
+  }
+};
