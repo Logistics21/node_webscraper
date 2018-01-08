@@ -2,8 +2,6 @@
 const rp = require('request-promise');
 //use jQuery similar syntax in node
 const cheerio = require('cheerio');
-//displays results in console
-const Table = require('cli-table');
 
 const ignore = [
   ".*@example.com$",
@@ -12,31 +10,29 @@ const ignore = [
   ".*\.png$",
   ".*\.jpe?g$",
   ".*\.gif$",
-  ".*@[0-9\.]+$" // no letters
+  ".*@[0-9\.]+$"
 ];
 
-const emails = [];
-
-let table = new Table({
-  head: ['email address'],
-  colWidths: [15]
-});
+const uriQueue = process.argv.slice(2);
 
 const options = {
-  uri: `http://www.une.edu/registrar/staff-locations`, //test location
-  // uri: `https://www.google.com`,
+  uri: 'https://www.google.com',
   transform: function(body) {
     return cheerio.load(body);
   }
 };
 
-rp(options)
+uriQueue.forEach(uri => {
+  options.uri = uri;
+
+  rp(options)
   .then(($) => {
+    let emails = [];
     process.stdout.write('loading...\n');
     const $a = $('a[href*=mailto]')
-      .each((i, el) => {
-	      var email = $(el).attr('href').slice(7);
-	      emails.push(email);
+    .each((i, el) => {
+      var email = $(el).attr('href').slice(7);
+      emails.push(email);
     })
 
     process.stdout.write('\n');
@@ -45,3 +41,4 @@ rp(options)
   .catch((err) => {
     console.log(err);
   });
+})
